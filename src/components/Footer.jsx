@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div
       onClick={() => navigate("/")}
-      className="hover:cursor-pointer fixed bottom-0 bg-blue-700 w-full text-center text-white py-1.5"
+      className="hover:cursor-pointer fixed bottom-0 bg-[#6b12a6] w-full text-center text-white py-1.5"
     >
       Task Manager
     </div>

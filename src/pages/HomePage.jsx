@@ -46,76 +46,82 @@ const HomePage = () => {
 
   return (
     <div className="px-4">
-      <h2 className="text-lg font-bold mt-4">List of Tasks</h2>
-      {tasks.map((task) => (
-        <div
-          className="w-[70%] flex items-center justify-between"
-          key={task.id}
-        >
-          <div className="mb-1">
-            <input
-              type="checkbox"
-              checked={task.complete}
-              onChange={() => handleToggle(task.id, setTasks)}
-              name={task.title}
-              id={task.id}
-              className="cursor-pointer"
-            />
-            <label
-              className={`ml-1 cursor-pointer ${
-                task.complete && "line-through"
-              }`}
-              htmlFor={task.id}
-            >
-              {task.title}
-            </label>
-            <span
-              className={
-                task.complete
-                  ? "text-red-700"
+      {tasks.length > 0 ? (
+        <h2 className="text-xl font-bold mt-4">List of Tasks</h2>
+      ) : (
+        <h2 className="text-2xl text-center mt-12">No Task Added!</h2>
+      )}
+      <div className="flex gap-2 flex-col">
+        {tasks.map((task) => (
+          <div
+            className="w-[70%] flex items-center justify-between border-2 px-2 py-1 border-[#6b12a6] rounded"
+            key={task.id}
+          >
+            <div className="mb-1">
+              <input
+                type="checkbox"
+                checked={task.complete}
+                onChange={() => handleToggle(task.id, setTasks)}
+                name={task.title}
+                id={task.id}
+                className="cursor-pointer"
+              />
+              <label
+                className={`ml-1 cursor-pointer ${
+                  task.complete && "line-through"
+                }`}
+                htmlFor={task.id}
+              >
+                {task.title}
+              </label>
+              <span
+                className={
+                  task.complete
+                    ? "text-[#6b12a6]"
+                    : task.progress
+                    ? "text-green-700"
+                    : ""
+                }
+              >
+                {task.complete
+                  ? " (Completed)"
                   : task.progress
-                  ? "text-green-700"
-                  : ""
-              }
-            >
-              {task.complete
-                ? " (Completed)"
-                : task.progress
-                ? " (in progress)"
-                : ""}
-            </span>
-          </div>
+                  ? " (in progress)"
+                  : ""}
+              </span>
+            </div>
 
-          <div className="[&>button]:rounded-sm">
-            {!task.complete && (
+            <div className="[&>button]:rounded-sm">
+              {!task.complete && (
+                <button
+                  onClick={() => handleStartStop(task.id, setTasks)}
+                  className="ml-2 bg-green-600 text-white px-1"
+                >
+                  {task.progress ? "Stop" : "Start"}
+                </button>
+              )}
+              {task.complete && (
+                <button className="ml-2 bg-[#6b12a6]text-white px-2">✔</button>
+              )}
               <button
-                onClick={() => handleStartStop(task.id, setTasks)}
+                onClick={() => {
+                  setInput(task.title);
+                  navigate("new/" + task.id);
+                }}
                 className="ml-2 bg-green-600 text-white px-1"
               >
-                {task.progress ? "Stop" : "Start"}
+                Edit
               </button>
-            )}
-            {task.complete && (
-              <button className="ml-2 bg-red-600 text-white px-2">✔</button>
-            )}
-            <button
-              onClick={() => {
-                setInput(task.title);
-                navigate("new/" + task.id);
-              }}
-              className="ml-2 bg-green-600 text-white px-1"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => handleDelete(task.id, setTasks)}
-              className="ml-2 bg-red-500 text-white px-1"
-            >
-              Delete
-            </button>
+              <button
+                onClick={() => handleDelete(task.id, setTasks)}
+                className="ml-2 bg-[#6b12a6] text-white px-1"
+              >
+                Delete
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
