@@ -64,7 +64,7 @@ const HomePage = () => {
                 onChange={() => handleToggle(task.id, setTasks)}
                 name={task.title}
                 id={task.id}
-                className="cursor-pointer"
+                className="cursor-pointer  translate-y-[1px]"
               />
               <label
                 className={`ml-1 cursor-pointer ${
